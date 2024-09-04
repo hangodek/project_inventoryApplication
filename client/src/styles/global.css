@@ -1,38 +1,11 @@
-* {
-    margin: 0;
-    padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  @apply container h-full;
 }
 
-html, body {
-    height: 100%;
-}
-
-header {
-    display: flex;
-    padding: 0.7rem;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #efefef;
-}
-
-header > ul {
-    display: flex;
-    list-style: none;
-    font-size: 1.3rem;
-}
-
-header > ul > li > a {
-    padding: 1rem;
-    border-radius: 10px;
-    text-decoration: none;
-    color: black;
-    transition: all 200ms ease;
-}
-
-header > ul > li > a:hover {
-    background-color: #d9aa77;
-}
-
-header > img {
-    width: 60px;
+.isOpen {
+  transform: translateY(-100%);
 }

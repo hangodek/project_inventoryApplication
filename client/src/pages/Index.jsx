@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Logo from "../components/Logo/Logo.jsx";
 import Navbar from "../components/Navbar/Navbar.jsx";

@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 import animeImage1 from "../../assets/animeImage/anime1.jpg";
 import animeImage2 from "../../assets/animeImage/anime2.jpg";
 import animeImage3 from "../../assets/animeImage/anime3.jpg";
@@ -34,12 +37,49 @@ const myAnime = [
 
 function ContentCard({ id }) {
   const listId = parseInt(id);
-  console.log(listId);
+  // console.log(listId);
+
+  const baseUrl = "http://localhost:3000";
+
+  const [myList, setmyList] = useState([]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const submitName = document.getElementById("submitName").value;
+    const submitStudio = document.getElementById("submitStudio").value;
+
+    axios.post(baseUrl, {
+      submitName: submitName,
+      submitStudio: submitStudio,
+    });
+
+    // console.log(submitName, submitStudio);
+  }
+
+  useEffect(() => {
+    const data = async () => {
+      const temp = await axios.get(baseUrl);
+      // console.log(temp.data);
+      setmyList(temp.data);
+    };
+
+    data();
+  }, []);
+
+  const temp = Object.entries(myList);
+  const temp2 = [];
+
+  const animeArr = temp.map(([key, anime]) => {
+    temp2.push(anime.imagepath);
+  });
+
+  // console.log(temp2);
 
   return (
     <>
       <div className="grid grid-cols-2 gap-2 [&_img]:h-full">
-        {!isNaN(listId) && listId > 0
+        {/* {!isNaN(listId) && listId > 0
           ? myAnime
               .filter((animeObj) => animeObj.mainId === listId)
               .map((animeObj) =>
@@ -51,7 +91,12 @@ function ContentCard({ id }) {
               return animeObj.src.map((anime) => {
                 return <img key={anime.id} src={anime.src} alt="" />;
               });
-            })}
+            })} */}
+        {temp2.map((anime, index) => {
+          return (
+            <img key={index} src={`http://localhost:3000/${anime}`} alt="" />
+          );
+        })}
       </div>
       <div className="flex justify-center gap-4">
         {myAnime.map((animeObj) => {
@@ -61,6 +106,19 @@ function ContentCard({ id }) {
             </form>
           );
         })}
+      </div>
+      <div>
+        <form>
+          <label htmlFor="submitName">
+            Anime Name:
+            <input type="text" name="submitName" id="submitName" />
+          </label>
+          <label htmlFor="submitStudio">
+            Studio Name:
+            <input type="text" name="submitStudio" id="submitStudio" />
+          </label>
+          <button onClick={handleSubmit}>Submit</button>
+        </form>
       </div>
     </>
   );

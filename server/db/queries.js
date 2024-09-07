@@ -5,11 +5,11 @@ async function dbGetAnimeList() {
   return rows;
 }
 
-async function dbPostAnimeList(submitName, submitStudio) {
-  await pool.query("INSERT INTO animelist (name, studioname) VALUES ($1, $2)", [
-    submitName,
-    submitStudio,
-  ]);
+async function dbPostAnimeList(submitName, submitStudio, submitImage) {
+  await pool.query(
+    "INSERT INTO animelist (name, studioname, imagepath) VALUES ($1, $2, $3)",
+    [submitName, submitStudio, submitImage]
+  );
 }
 
 module.exports = {

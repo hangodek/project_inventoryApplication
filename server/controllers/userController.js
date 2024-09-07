@@ -8,8 +8,8 @@ async function getAnimeList(req, res) {
 
 async function postAnimeList(req, res) {
   const { submitName, submitStudio } = req.body;
-  console.log(req.body);
-  db.dbPostAnimeList(submitName, submitStudio);
+  const submitImage = req.file.path;
+  db.dbPostAnimeList(submitName, submitStudio, submitImage);
 }
 
 module.exports = {

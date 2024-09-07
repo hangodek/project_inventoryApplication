@@ -44,14 +44,21 @@ function ContentCard({ id }) {
   const [myList, setmyList] = useState([]);
 
   function handleSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
 
     const submitName = document.getElementById("submitName").value;
     const submitStudio = document.getElementById("submitStudio").value;
+    const submitImage = document.getElementById("submitImage").files[0];
 
-    axios.post(baseUrl, {
-      submitName: submitName,
-      submitStudio: submitStudio,
+    const formData = new FormData();
+    formData.append("submitName", submitName);
+    formData.append("submitStudio", submitStudio);
+    formData.append("submitImage", submitImage);
+
+    axios.post(baseUrl, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
 
     // console.log(submitName, submitStudio);
@@ -70,15 +77,20 @@ function ContentCard({ id }) {
   const temp = Object.entries(myList);
   const temp2 = [];
 
+  // console.log(temp);
+  // console.log(temp2);
+
   const animeArr = temp.map(([key, anime]) => {
     temp2.push(anime.imagepath);
   });
+
+  // setmyList(temp2);
 
   // console.log(temp2);
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 [&_img]:h-full">
+      <div className="grid grid-cols-2 gap-2 [&_img]:h-[334px]">
         {/* {!isNaN(listId) && listId > 0
           ? myAnime
               .filter((animeObj) => animeObj.mainId === listId)
@@ -108,7 +120,7 @@ function ContentCard({ id }) {
         })}
       </div>
       <div>
-        <form>
+        <form encType="multipart/form-data">
           <label htmlFor="submitName">
             Anime Name:
             <input type="text" name="submitName" id="submitName" />
@@ -116,6 +128,10 @@ function ContentCard({ id }) {
           <label htmlFor="submitStudio">
             Studio Name:
             <input type="text" name="submitStudio" id="submitStudio" />
+          </label>
+          <label htmlFor="">
+            Image: (Required)
+            <input type="file" name="submitImage" id="submitImage" />
           </label>
           <button onClick={handleSubmit}>Submit</button>
         </form>

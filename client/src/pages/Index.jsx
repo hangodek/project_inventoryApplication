@@ -16,7 +16,7 @@ function Index() {
         <Navbar />
       </header>
       <section className="flex flex-col gap-4 p-4 bg-slate-100">
-        <ListBy />
+        {/* <ListBy /> */}
         <ContentCard id={id} />
       </section>
     </>

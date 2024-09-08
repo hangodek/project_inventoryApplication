@@ -21,7 +21,18 @@ const upload = multer({ storage: storage });
 //   res.json({ message: "gasdds" });
 // });
 
-app.get("/", userController.getAnimeList);
+// app.get("/", userController.getAnimeList);
+
+app.get("/", (req, res) => {
+  if (req.query.searchBy) {
+    // If the searchBy query parameter exists, perform a search
+    userController.searchAnimeList(req, res);
+  } else {
+    // Otherwise, return the full anime list
+    userController.getAnimeList(req, res);
+  }
+});
 app.post("/", upload.single("submitImage"), userController.postAnimeList);
+app.delete("/", userController.deleteAnimeList);
 
 module.exports = app;

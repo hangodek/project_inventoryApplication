@@ -7,20 +7,19 @@ import ListBy from "../components/ListBy/ListBy.jsx";
 import ContentCard from "../components/ContentCard/ContentCard.jsx";
 
 function Index() {
-  const { id } = useParams();
+    const { id } = useParams();
 
-  return (
-    <>
-      <header className="flex p-4 justify-between items-center bg-blue-300">
-        <Logo />
-        <Navbar />
-      </header>
-      <section className="flex flex-col gap-4 p-4 bg-slate-100">
-        {/* <ListBy /> */}
-        <ContentCard id={id} />
-      </section>
-    </>
-  );
+    return (
+        <>
+            <header className="flex p-2 justify-between items-center bg-blue-300 w-full sm:w-screen sm:p-4 md:w-screen">
+                <Logo />
+                <Navbar />
+            </header>
+            <section className="flex flex-col gap-2 p-2 bg-slate-100 w-full sm:gap-4 sm:w-screen sm:p-4 md:w-screen">
+                <ContentCard id={id} />
+            </section>
+        </>
+    );
 }
 
 export default Index;
